@@ -1,8 +1,12 @@
 package com.skyshi.mimiku
 
+import android.app.AlarmManager
+import android.app.PendingIntent
 import android.content.Context
+import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
+import android.os.SystemClock
 import android.support.v7.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_main.*
 import java.util.*
@@ -34,6 +38,15 @@ class MainActivity : AppCompatActivity() {
             setText(sharedPreferences.getInt("counter", 0) + 1)
 
         }
+
+        val time = Calendar.getInstance()
+        time.timeInMillis = System.currentTimeMillis()
+        time.set(Calendar.HOUR, 12)
+
+        val intent = Intent(this, MyBroadcastReceiver::class.java)
+        val pendingIntent = PendingIntent.getBroadcast(this, 110, intent, 0)
+        val alarmManager = getSystemService(Context.ALARM_SERVICE) as AlarmManager
+        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, time.timeInMillis, 1000 * 60 * 24, pendingIntent)
 
     }
 
