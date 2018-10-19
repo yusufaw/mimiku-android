@@ -6,7 +6,6 @@ import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
-import android.os.SystemClock
 import android.support.v7.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_main.*
 import java.util.*
@@ -41,7 +40,9 @@ class MainActivity : AppCompatActivity() {
 
         val time = Calendar.getInstance()
         time.timeInMillis = System.currentTimeMillis()
-        time.set(Calendar.HOUR, 12)
+        time.set(Calendar.HOUR_OF_DAY, 12)
+        time.set(Calendar.MINUTE, 0)
+        time.set(Calendar.SECOND, 0)
 
         val intent = Intent(this, MyBroadcastReceiver::class.java)
         val pendingIntent = PendingIntent.getBroadcast(this, 110, intent, 0)
