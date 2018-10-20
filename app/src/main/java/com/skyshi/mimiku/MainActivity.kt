@@ -7,7 +7,11 @@ import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
+import android.view.Menu
+import android.view.MenuItem
 import kotlinx.android.synthetic.main.activity_main.*
+import org.jetbrains.anko.intentFor
+import org.jetbrains.anko.singleTop
 import java.util.*
 
 
@@ -57,5 +61,20 @@ class MainActivity : AppCompatActivity() {
         x.putLong("time", Calendar.getInstance().timeInMillis)
         text_view.text = y.toString()
         x.apply()
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.menux, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+        return when (item?.itemId) {
+            R.id.setting -> {
+                startActivity(intentFor<SettingActivity>().singleTop())
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
     }
 }
